@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .converter {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <h2>Unit Converter</h2>
+    <label for="value">Value:</label>
+    <input type="number" id="value" placeholder="Enter value">
+    <label for="from">From:</label>
+    <select id="from">
+      <option value="cm">Centimeters</option>
+      <option value="m">Meters</option>
+      <option value="in">Inches</option>
+    </select>
+    <label for="to">To:</label>
+    <select id="to">
+      <option value="cm">Centimeters</option>
+      <option value="m">Meters</option>
+      <option value="in">Inches</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+    <p id="result"></p>
+  </div>
+  <script>
+    function convert() {
+      const value = parseFloat(document.getElementById('value').value);
+      const fromUnit = document.getElementById('from').value;
+      const toUnit = document.getElementById('to').value;
+      let result = 0;
+
+      if (fromUnit === toUnit) {
+        result = value;
+      } else if (fromUnit === 'cm' && toUnit === 'm') {
+        result = value / 100;
+      } else if (fromUnit === 'cm' && toUnit === 'in') {
+        result = value / 2.54;
+      } else if (fromUnit === 'm' && toUnit === 'cm') {
+        result = value * 100;
+      } else if (fromUnit === 'm' && toUnit === 'in') {
+        result = value * 39.37;
+      } else if (fromUnit === 'in' && toUnit === 'cm') {
+        result = value * 2.54;
+      } else if (fromUnit === 'in' && toUnit === 'm') {
+        result = value * 0.0254;
+      }
+
+      document.getElementById('result').textContent = `${value} ${fromUnit} is ${result.toFixed(2)} ${toUnit}`;
+    }
+  </script>
+</body>
+</html>
